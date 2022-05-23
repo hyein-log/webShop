@@ -2,6 +2,8 @@ package com.kosta.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,44 +12,46 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kosta.dto.DeptDTO;
 import com.kosta.dto.EMPVO;
+import com.kosta.dto.JobVO;
+import com.kosta.model.DeptService;
 import com.kosta.model.EMPService;
 import com.kosta.util.DateUtil;
 
 /**
  * Servlet implementation class EmpDetailServlet
  */
-@WebServlet("/emp/empDetail.do")
-public class EmpDetailServlet extends HttpServlet {
+@WebServlet("/emp/empInsert.do")
+public class EmpInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String empid = request.getParameter("empid");
-		int i_empid = 0;
 		
-		System.out.println("empid=" + empid);
+		DeptService deptService = new DeptService();
+		List<DeptDTO> dlist = deptService.selectAll();
+		request.setAttribute("dlist", dlist);
 		
-		if(empid !=null ) {
-			i_empid = Integer.parseInt(empid);
-		}
-		EMPService eService = new EMPService();
-		EMPVO emp = eService.selectById(i_empid);
-		System.out.println(emp);
-		request.setAttribute("emp", emp);
+		EMPService empService = new EMPService();
+		List<JobVO> jlist = empService.selectJobAll();
+		request.setAttribute("jlist", jlist);
+		Map<Integer, String> mlist  = empService.selectManagerAll();
+		request.setAttribute("mlist", mlist);
 		
 		RequestDispatcher rd;
-		rd = request.getRequestDispatcher("empDetail.jsp");
+		rd = request.getRequestDispatcher("empInsert.jsp");
 		rd.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//수정하기
+		//입력하기
+		request.setCharacterEncoding("utf-8");
 		EMPVO emp = makeEMP(request);
 		EMPService empService = new EMPService();
-		int result = empService.empUpdate(emp);
-		request.setAttribute("message", result>0?"직원정보 수정성공":"수정실패");
+		int result = empService.empInsert(emp);
+		request.setAttribute("message", result>0?"직원정보 입력성공":"입력실패");
 		RequestDispatcher rd = request.getRequestDispatcher("result.jsp");
 		rd.forward(request, response);
 	}

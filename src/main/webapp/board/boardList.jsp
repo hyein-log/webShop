@@ -26,6 +26,7 @@ padding: 10px;
 			<td>등록일</td>
 			<td>업데이트일</td>
 			<td>작성자</td>
+			<td></td>
 		</tr>
 		<c:forEach items="${boardLists }" var = "board">
 		<tr>
@@ -35,8 +36,22 @@ padding: 10px;
 			<td>${board.regdate }</td>
 			<td>${board.update_date }</td>
 			<td>${board.writer }</td>
+			<td><button class="btnDel" data-bno="${board.bno }">삭제하기</button></td>
 		</tr>
 		</c:forEach>
 	</table>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script>
+	$(function(){
+		//# : 아이디를 의미함. 아이디는 문서 내에서 유일함.
+		//. : 클래스를 의미함. 클래스는 여러 개 있을 수 있음
+		$(".btnDel").click(function(){
+			var bno = $(this).attr("data-bno");
+			if(confirm(bno+" 삭제하시겠습니까?")){
+					location.href = "boardDelete.do?bno="+bno;
+			}
+		});
+	});
+	</script>
 </body>
 </html>

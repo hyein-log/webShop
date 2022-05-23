@@ -17,6 +17,16 @@ public class EMPVO {
 	private double commission_pct;
 	private int manager_id;
 	private int department_id;
+	
+	
+	public EMPVO() {
+		super();
+	}
+	public EMPVO(int employee_id) {
+		super();
+		this.employee_id = employee_id;
+	}
+	
 	public int getEmployee_id() {
 		return employee_id;
 	}

@@ -2,9 +2,12 @@ package com.kosta.model;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.kosta.dto.EMPVO;
+import com.kosta.dto.JobVO;
 import com.kosta.util.DBUtil;
 
 //CRUD작업 INSERT, SELECT, UPDATE, DELETE -> DAO ; DATA ACCESS OBJECT
@@ -22,7 +25,6 @@ public class EMPDAO {
 	static final String SQL_SELECT_BYID = "select * from employees where employee_id = ?";
 	static final String SQL_INSERT = "INSERT INTO EMPLOYEES VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	static final String SQL_UPDATE = "UPDATE EMPLOYEES SET"
-			+ "	EMPLOYEE_ID =?,"
 			+ "	FIRST_NAME=?,"
 			+ "	LAST_NAME=?,"
 			+ "	EMAIL=?,"
@@ -31,7 +33,8 @@ public class EMPDAO {
 			+ "	JOB_ID=?,"
 			+ "	SALARY=?,"
 			+ "	COMMISSION_PCT=?,"
-			+ "	MANAGER_ID=?,"
+			//+ "	MANAGER_ID=?,"
+			+ "	MANAGER_ID=decode(?,0,null,?),"
 			+ "	DEPARTMENT_ID=?"
 			+ "	WHERE EMPLOYEE_ID =?";
 			//"update employees set first_name = ?, salary =? , job_id = ? where  employee_id =?";
@@ -63,6 +66,46 @@ public class EMPDAO {
 		}
 		
 		return emplist;
+		
+	}
+	public List<JobVO> selectJobAll() {
+		List<JobVO> joblist = new ArrayList<>();
+		conn = DBUtil.getConnection();
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery("select * from jobs order by 1");
+			while(rs.next()) {
+				JobVO job = new JobVO(rs.getString(1), rs.getString(2),rs.getInt(3),rs.getInt(4)); 
+				joblist.add(job);
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			DBUtil.dbClose(rs, st, conn);
+		}
+		
+		return joblist;
+		
+	}
+	public Map<Integer, String> selectManagerAll() {
+		Map<Integer, String> managerMap = new HashMap<>();
+		conn = DBUtil.getConnection();
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery("select employee_id, first_name from employees where employee_id in (select distinct manager_id from employees)");
+			while(rs.next()) {
+				
+				managerMap.put(rs.getInt(1), rs.getString(2));
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			DBUtil.dbClose(rs, st, conn);
+		}
+		
+		return managerMap;
 		
 	}
 	private EMPVO makeEmp(ResultSet rs) throws SQLException {
@@ -227,7 +270,6 @@ public class EMPDAO {
 		conn = DBUtil.getConnection();
 		try {
 			pst = conn.prepareStatement(SQL_UPDATE); //sql문장 미리 준비
-			pst.setInt(11, emp.getEmployee_id()); 
 			pst.setString(1, emp.getFirst_name()); 
 			pst.setString(2, emp.getLast_name()); 
 			pst.setString(3, emp.getEmail()); 			
@@ -237,7 +279,9 @@ public class EMPDAO {
 			pst.setDouble(7, emp.getSalary()); 
 			pst.setDouble(8, emp.getCommission_pct()); 
 			pst.setInt(9, emp.getManager_id()); 
-			pst.setInt(10, emp.getDepartment_id()); 
+			pst.setInt(10, emp.getManager_id()); 
+			pst.setInt(11, emp.getDepartment_id()); 
+			pst.setInt(12, emp.getEmployee_id()); 
 			
 			result = pst.executeUpdate();
 			

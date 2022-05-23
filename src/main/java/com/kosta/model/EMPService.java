@@ -1,8 +1,10 @@
 package com.kosta.model;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kosta.dto.EMPVO;
+import com.kosta.dto.JobVO;
 // 사용자 -> controller --> service --> DAO -> DB
 //		<-			  <--		  <--	  <-
 public class EMPService {
@@ -11,6 +13,12 @@ public class EMPService {
 		public List<EMPVO> selectAll() {
 			return empDAO.selectAll();
 			
+		}
+		public List<JobVO> selectJobAll() {
+			return empDAO.selectJobAll();
+		}
+		public Map<Integer, String> selectManagerAll() {
+			return empDAO.selectManagerAll();
 		}
 		//2.조건조회(특정부서)
 		public List<EMPVO> selectByDept(int deptid) {
