@@ -3,6 +3,7 @@ package com.kosta.controller;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,6 +25,9 @@ public class BoardInsertServlet extends HttpServlet {
 		RequestDispatcher rd;
 		rd = request.getRequestDispatcher("boardInsert.jsp");
 		rd.forward(request, response);
+		ServletContext app = getServletContext();
+		String arr = (String) app.getAttribute("myname");
+		System.out.println("getAttribute! = "+ arr);
 	}
 
 	//입력된 데이터를 DB에 저장하기
@@ -37,12 +41,16 @@ public class BoardInsertServlet extends HttpServlet {
 		BoardVO boardVO = new BoardVO(0, title, content, writer, null, null);
 		BoardService boardService = new BoardService();
 		int result = boardService.insert(boardVO);
-		String message = "수정실패";
-		if(result >0) message="수정성공";
-		request.setAttribute("message", message);
-		RequestDispatcher rd;
-		rd = request.getRequestDispatcher("result.jsp");
-		rd.forward(request, response);
+//		String message = "수정실패";
+//		if(result >0) message="수정성공";
+//		request.setAttribute("message", message);
+//		RequestDispatcher rd;
+//		rd = request.getRequestDispatcher("result.jsp");
+//		rd.forward(request, response);
+		
+		response.sendRedirect("boardlist.do");
+		//redirect : 주소창을 바꿈
+		//forward : 주소창을 바꾸지 않음 . 요청과 응답이 다른 문서이다.
 	}
 
 }

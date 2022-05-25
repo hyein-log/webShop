@@ -16,6 +16,11 @@ padding: 10px;
 </head>
 <body>
 	<h1>게시판목록</h1>
+	<h3>
+	application 정보얻기 : ${myname }
+	request : ${myaddress }
+	</h3>
+	
 	<a href="boardInsert.do">게시글 작성하기</a>
 	<hr>
 	<table>

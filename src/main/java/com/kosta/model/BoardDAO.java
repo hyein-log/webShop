@@ -33,7 +33,7 @@ public class BoardDAO {
 	public List<BoardEmpVO> selectallJoin() {
 		List<BoardEmpVO> boardlist = new ArrayList<>();
 		BoardEmpVO board = null;
-		conn = DBUtil.getConnection();
+		conn = DBUtil.getConnection(); //컨넥션풀링을 이용해서 컨넥선 얻기
 		try {
 			st = conn.createStatement();
 			rs = st.executeQuery(SQL_BOARDENP);

@@ -6,28 +6,51 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DBUtil {
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
+public class DBUtil {
 	public static Connection getConnection() {
-		Connection conn =null;
-		String url= "jdbc:oracle:thin:@localhost:1521:XE";
-		String userid = "hr", password ="hr";
-		
+		Context initContext;
+		Connection conn = null;
 		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-			conn = DriverManager.getConnection(url, userid, password);
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
+			initContext = new InitialContext();
+			Context envContext = (Context) initContext.lookup("java:/comp/env");
+			DataSource ds = (DataSource) envContext.lookup("jdbc/myoracle"); // JNDI방식
+			conn = ds.getConnection(); // 톰캣이 connection pooling에 연결한 connection얻기
+		} catch (NamingException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return conn;
 	}
-	
+
+//	public static Connection getConnection() {
+//		Connection conn =null;
+//		String url= "jdbc:oracle:thin:@localhost:1521:XE";
+//		String userid = "hr", password ="hr";
+//		
+//		try {
+//			Class.forName("oracle.jdbc.OracleDriver");
+//			conn = DriverManager.getConnection(url, userid, password);
+//		} catch (ClassNotFoundException | SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return conn;
+//	}
+//	
 	public static void dbClose(ResultSet rs, Statement st, Connection conn) {
 		try {
-			if(rs!=null)rs.close();
-			if(st!=null)st.close();
-			if(conn!=null)conn.close();
+			if (rs != null)
+				rs.close();
+			if (st != null)
+				st.close();
+			if (conn != null)
+				conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

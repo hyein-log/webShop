@@ -8,7 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.kosta.dto.UserVO;
 import com.kosta.model.EMPService;
 
 /**
@@ -18,10 +20,16 @@ import com.kosta.model.EMPService;
 public class EmpListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		UserVO user = (UserVO) session.getAttribute("user");
+		if(user == null) {
+			System.out.println("로그인 실패...직원정보 볼 수 없음");
+			response.sendRedirect("../html/Login.do");
+			return;
+		}
 		EMPService empService = new EMPService();
 		request.setAttribute("emplist", empService.selectAll());
 		
