@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>보드의 상세내역</h1>
-
+<%@ include file="../common/header.jsp" %>
 <form action="boardUpdate.do" method="post">
 bno :${board.bno } <input type="hidden" name ="bno" value="${board.bno }"><br>
 title : <input type="text" name ="title" value="${board.title }"><br>

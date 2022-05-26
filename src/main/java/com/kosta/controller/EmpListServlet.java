@@ -23,13 +23,7 @@ public class EmpListServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
-		UserVO user = (UserVO) session.getAttribute("user");
-		if(user == null) {
-			System.out.println("로그인 실패...직원정보 볼 수 없음");
-			response.sendRedirect("../html/Login.do");
-			return;
-		}
+		
 		EMPService empService = new EMPService();
 		request.setAttribute("emplist", empService.selectAll());
 		

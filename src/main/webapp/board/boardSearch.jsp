@@ -8,6 +8,7 @@
 </head>
 <body>
 <h1>특정 보드상세조회</h1>
+<%@ include file="../common/header.jsp" %>
 <form action="boardDetail.do" method="post">
 보드번호: <input type="number" name="boardid" value="1">
 <input type="submit" value="보드조회">

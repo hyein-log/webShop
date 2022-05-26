@@ -16,6 +16,7 @@ padding: 10px;
 </head>
 <body>
 	<h1>게시판목록</h1>
+	<%@ include file="../common/header.jsp" %>
 	<h3>
 	application 정보얻기 : ${myname }
 	request : ${myaddress }

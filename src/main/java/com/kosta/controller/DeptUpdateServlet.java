@@ -21,7 +21,7 @@ public class DeptUpdateServlet extends HttpServlet {
        
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+		//필터로 처리함request.setCharacterEncoding("utf-8");
 		String department_name = request.getParameter("department_name");
 		int manager_id = Integer.parseInt(request.getParameter("manager_id"));
 		int location_id = Integer.parseInt(request.getParameter("location_id"));

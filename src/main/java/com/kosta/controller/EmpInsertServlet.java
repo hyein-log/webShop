@@ -11,10 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kosta.dto.DeptDTO;
 import com.kosta.dto.EMPVO;
 import com.kosta.dto.JobVO;
+import com.kosta.dto.UserVO;
 import com.kosta.model.DeptService;
 import com.kosta.model.EMPService;
 import com.kosta.util.DateUtil;
@@ -30,7 +32,7 @@ public class EmpInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	
 		DeptService deptService = new DeptService();
 		List<DeptDTO> dlist = deptService.selectAll();
 		request.setAttribute("dlist", dlist);
@@ -47,7 +49,7 @@ public class EmpInsertServlet extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//입력하기
-		request.setCharacterEncoding("utf-8");
+		//필터로 처리함 request.setCharacterEncoding("utf-8");
 		EMPVO emp = makeEMP(request);
 		EMPService empService = new EMPService();
 		int result = empService.empInsert(emp);

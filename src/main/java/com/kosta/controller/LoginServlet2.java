@@ -20,7 +20,7 @@ public class LoginServlet2 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//get요청은 주소창에 파라메터가 자동으로 인코딩되어 넘어온다. 그래서 한글이 깨지지 않는다.
 		//post요청은 요청문서의 body에 파라메터가 인코딩안돼서 넘어온다. 그래서 한글이 깨진다.
-		request.setCharacterEncoding("utf-8"); //post에서는 필수로 필요함
+		//필터로 처리함request.setCharacterEncoding("utf-8"); //post에서는 필수로 필요함
 		String id = request.getParameter("a");
 		String password = request.getParameter("b");
 		String email = request.getParameter("c");

@@ -8,6 +8,7 @@
 </head>
 <body>
 <h1>특정 직원조회</h1>
+<%@ include file="../common/header.jsp" %>
 <form action="empDetail.do" method="post">
 직원번호: <input type="number" name="empid" value="100">
 <input type="submit" value="직원조회">

@@ -8,7 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.kosta.dto.UserVO;
 import com.kosta.model.EMPService;
 
 /**
@@ -18,7 +20,12 @@ import com.kosta.model.EMPService;
 public class EmpDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		int emp_id = Integer.parseInt(request.getParameter("emp_id"));
 		EMPService empService = new EMPService();
 		int result = empService.empDelete(emp_id);

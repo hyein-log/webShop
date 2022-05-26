@@ -19,6 +19,18 @@
   <param-value>1234</param-value>
   </context-param>
   
+  
+  <!-- filter등록 @WebFilter("*.do")와 같다. -->
+ <filter>
+ <filter-name>encodeFilter</filter-name>
+ <filter-class>com.kosta.filterAndListener.EncodeFilter</filter-class>
+ </filter>
+ <filter-mapping>
+ <filter-name>encodeFilter</filter-name>
+ <url-pattern>*.do</url-pattern>
+ </filter-mapping>
+ 
+ 
   <!-- 서블릿 요청에 대한 설정을 xml에서 하기 @WebServlet와 같음-->
   <servlet>
 	<servlet-name>configTest</servlet-name>

@@ -8,6 +8,7 @@
 </head>
 <body>
 <h1>보드 작성하기</h1>
+<%@ include file="../common/header.jsp" %>
 <form action="boardInsert.do" method="post">
 제목 : <input type="text" name ="title" value=""><br>
 내용 : <input type="text" name ="content" value=""><br>

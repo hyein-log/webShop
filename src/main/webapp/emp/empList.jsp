@@ -13,18 +13,33 @@
 
 <style type="text/css">
 table, td {
-border:1px solid green;
+border:1px solid gray;
 border-collapse: collapse;
 padding: 10px;
+margin: auto;
 }
 tr:first-child {
 	background-color: pink;
 }
+h1{text-align: center; padding: 20px; margin: 10px;}
+.Left{float: left; padding-left: 20px;}
+
 </style>
 </head>
 <body>
 <h1>직원목록</h1>
-<a href="empInsert.do">신규등록</a>
+<hr>
+<h2>EL(Expression Language)문법</h2>
+<p>application영역에 접근 : ${appVar}</p>
+<p>session영역에 접근 : ${sessionVar}</p>
+<p>request영역에 접근 : ${requestVar}</p>
+
+${pageContext.request.contextPath}
+
+<div><span><a class= "Left" href="empInsert.do">신규등록</a></span>
+<%@ include file="../common/header.jsp" %>
+</div>
+<br><br>
 <table>
 <tr>
 <td>직원번호</td>

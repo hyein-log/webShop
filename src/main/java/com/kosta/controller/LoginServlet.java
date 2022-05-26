@@ -1,7 +1,6 @@
 package com.kosta.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,14 +22,14 @@ public class LoginServlet extends HttpServlet {
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		RequestDispatcher rd = request.getRequestDispatcher("loginForm.html");
+		RequestDispatcher rd = request.getRequestDispatcher("loginForm.jsp");
 		rd.forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//get요청은 주소창에 파라메터가 자동으로 인코딩되어 넘어온다. 그래서 한글이 깨지지 않는다.
 		//post요청은 요청문서의 body에 파라메터가 인코딩안돼서 넘어온다. 그래서 한글이 깨진다.
-		request.setCharacterEncoding("utf-8"); //post에서는 필수로 필요함
+		//필터로 처리함request.setCharacterEncoding("utf-8"); //post에서는 필수로 필요함
 		String id = request.getParameter("userid");
 		String password = request.getParameter("userpw");
 		UserService service = new UserService();
@@ -40,11 +39,11 @@ public class LoginServlet extends HttpServlet {
 		//세션 : 정보는 서버에 저장, 브라우저에는 session id저장
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user); //쿠키는 문자밖에 못오는데 세션은 다 올 수 있음
-		
+		String path = (String)session.getAttribute("requestPath");
 		if(user ==null) {
 			response.sendRedirect("Login.do");
 		}else {
-			response.sendRedirect("../emp/emplist.do");
+			response.sendRedirect(path);
 		}
 //		String email = request.getParameter("useremail");
 //		String address = request.getParameter("useraddress");
