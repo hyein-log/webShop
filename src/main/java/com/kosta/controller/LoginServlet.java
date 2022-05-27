@@ -42,6 +42,9 @@ public class LoginServlet extends HttpServlet {
 		String path = (String)session.getAttribute("requestPath");
 		if(user ==null) {
 			response.sendRedirect("Login.do");
+		}else if(user!=null && path.equals("/webShop/Login.do")){
+			path = request.getContextPath() + "/1.jsp";
+			response.sendRedirect(path);
 		}else {
 			response.sendRedirect(path);
 		}
