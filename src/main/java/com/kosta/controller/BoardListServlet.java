@@ -36,7 +36,6 @@ public class BoardListServlet extends HttpServlet {
 		List<BoardVO> blist = boardService.select();
 		
 		request.setAttribute("boardLists", blist);
-		
 		RequestDispatcher rd; //위임(요청을 받은 것은 servlet인데 응답은 JSP가 하도록함)
 		rd = request.getRequestDispatcher("boardList.jsp");
 		rd.forward(request, response);

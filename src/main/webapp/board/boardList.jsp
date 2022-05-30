@@ -6,11 +6,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../css/common.css">
 <style type="text/css">
 table, td {
 border:1px solid green;
 border-collapse: collapse;
 padding: 10px;
+}
+.color1 {
+	background-color: MistyRose;
+}
+.color3{
+background-color: LavenderBlush;
+}
+.color4{
+background-color: SeaShell;
 }
 </style>
 </head>
@@ -25,7 +35,9 @@ padding: 10px;
 	<a href="boardInsert.do">게시글 작성하기</a>
 	<hr>
 	<table>
-	<tr>
+	<tr class = color1>
+			<td>순서</td>
+			<td>역순서</td>
 			<td>번호</td>
 			<td>제목</td>
 			<td>내용</td>
@@ -34,8 +46,11 @@ padding: 10px;
 			<td>작성자</td>
 			<td></td>
 		</tr>
-		<c:forEach items="${boardLists }" var = "board">
-		<tr>
+		<c:forEach items="${boardLists }" var = "board" varStatus="status">
+		
+		<tr class ="${status.count%2==0?'color3':'color4' }">
+			<td>${status.count }</td>
+			<td>${boardLists.size()-status.index }</td>
 			<td><a href = "boardDetail.do?boardid=${board.bno }">${board.bno }</a></td> <%--<a>태그는 get타입밖에 못받음 post안됨 --%>
 			<td>${board.title }</td>
 			<td>${board.content }</td>

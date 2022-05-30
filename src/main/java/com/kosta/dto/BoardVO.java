@@ -10,10 +10,43 @@ public class BoardVO {
 	private Date regdate;
 	private Date update_date;
 	
+	private EMPVO emp;
+	
+	
+	public EMPVO getEmp() {
+		System.out.println("getEmp!"+ emp);
+		return emp;
+	}
+
+
+	public void setEmp(EMPVO emp) {
+		System.out.println("setEmp!"+ emp);
+		this.emp = emp;
+	}
+
+
+	public BoardVO(String title, String content, int writer, EMPVO emp) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+		this.emp = emp;
+	}
+
+
 	public BoardVO() {
 		
 	}
 	
+	
+	public BoardVO(String title, String content, int writer) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+	}
+
+
 	public BoardVO(int bno, String title, String content, int writer, Date regdate, Date update_date) {
 		super();
 		this.bno = bno;

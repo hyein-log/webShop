@@ -9,17 +9,13 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-  <style type="text/css">
-<style>
-  	label{display:inline-block; width:100px;}
-  	.form-control{display:inline-block; width:auto;}
-  </style>
+<link rel="stylesheet" href="../css/common.css">
 
-  </style>
+
 </head>
 <body>
 <h1>직원의 상세내역</h1>
-<%@ include file="../common/header.jsp" %>
+
 <form action="empDetail.do" method ="post">
 <div class="form-group">
       <label>직원번호: ${emp.employee_id } </label>

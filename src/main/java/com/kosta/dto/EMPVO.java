@@ -19,6 +19,12 @@ public class EMPVO {
 	private int department_id;
 	
 	
+	public EMPVO(int employee_id, String first_name, String last_name) {
+		super();
+		this.employee_id = employee_id;
+		this.first_name = first_name;
+		this.last_name = last_name;
+	}
 	public EMPVO() {
 		super();
 	}
