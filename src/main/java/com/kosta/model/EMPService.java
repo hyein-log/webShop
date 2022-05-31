@@ -45,6 +45,9 @@ public class EMPService {
 			return empDAO.selectById(empid);
 			
 		}
+		public EMPVO selectByEmail(String empEmail) {
+			return empDAO.selectByEmail(empEmail);
+		}
 		//7.insert
 		public int empInsert(EMPVO emp) {
 			return empDAO.empInsert(emp);

@@ -9,14 +9,37 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+$(function(){
+	$(".empDetailView").click(function(){
+		var empid = $(this).attr("data-empid");
+		
+		$("#emp_id").val(empid);
+		$.ajax({
+			url:"empDetail2.do",
+			data:{"empid":empid},
+			type:"get",
+			success:function(responseData){
+				
+				//JSON받기 '{"emp_fname":"a", "emp_lname":"b"}'
+				var obj = JSON.parse(responseData);
+				$("#emp_fname").val(obj["emp_fname"]);
+				$("#emp_lname").val(obj["emp_lname"]);
+				
+			}
+		});
+	});
+});
+
+</script>
 
 <style type="text/css">
 table, td {
@@ -77,6 +100,7 @@ width: 80%; margin: 0 auto;
 	<table>
 		<tr>
 			<td>순서</td>
+			<td>상세보기</td>
 			<td>직원번호</td>
 			<td>성</td>
 			<td>이름</td>
@@ -105,12 +129,13 @@ width: 80%; margin: 0 auto;
 			</c:if>
 
 			<td>${status.count }</td>
+			<td><input type="button" value="상세보기" class="empDetailView btn btn-primary" data-toggle="modal" data-target="#myModal" data-empid=${emp.employee_id }></td>
 			<td><a href="empDetail.do?empid=${emp.employee_id }">${emp.employee_id }</a></td>
 			<td>${emp.first_name }...${fn:contains(emp.first_name,"al")}</td> <%--contains는 대소문자 구분함 --%>
 			<td>${emp.last_name }</td>
 			<td>${emp.hire_date}</td>
 			<td>
-			<fmt:formatNumber  value="${emp.salary }" type="currency" currencySymbol="$" />
+			<fmt:formatNumber value="${emp.salary }" type="currency" currencySymbol="$" />
 			</td>
 			<td>
 			${fn:substring(emp.phone_number,0,3)}
@@ -130,5 +155,30 @@ width: 80%; margin: 0 auto;
 
 		</c:forEach>
 	</table>
+	  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">직원정보 상세보기</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body form-group">
+        	<label>직원번호</label><input class = "form-control" type="text" id="emp_id"><br>
+        	<label>성</label><input class = "form-control" type="text" id="emp_fname"><br>
+        	<label>이름</label><input class = "form-control" type="text"id="emp_lname"><br>
+        </div>
+       
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 </body>
 </html>

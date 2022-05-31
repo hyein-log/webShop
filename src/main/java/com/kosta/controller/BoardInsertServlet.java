@@ -1,6 +1,8 @@
 package com.kosta.controller;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kosta.dto.BoardVO;
 import com.kosta.model.BoardService;
+import com.kosta.util.UploadFileHelper;
 
 /**
  * Servlet implementation class BoardInsertServlet
@@ -39,6 +42,11 @@ public class BoardInsertServlet extends HttpServlet {
 		int writer = Integer.parseInt(request.getParameter("writer"));
 		
 		BoardVO boardVO = new BoardVO(0, title, content, writer, null, null);
+		Map<String,Object> map = (Map<String,Object>)UploadFileHelper.uploadFile("uploads", request);
+		List<String>fileNames = (List<String>)map.get("photos");
+		String pic = fileNames.get(0);
+		boardVO.setPic(pic);
+		System.out.println(boardVO);
 		BoardService boardService = new BoardService();
 		int result = boardService.insert(boardVO);
 //		String message = "수정실패";

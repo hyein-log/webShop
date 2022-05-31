@@ -23,8 +23,8 @@
 <h1>로그인하기</h1>
 <%@include file="../common/header.jsp" %>
 <form action="Login.do" method="post">
-사용자번호<br> <input type="text" name="userid" value=""><br>
-비밀번호<br> <input type="text" name="userpw" value=""><br>
+사용자번호<br> <input type="text" name="userid" value="ohio"><br>
+비밀번호<br> <input type="text" name="userpw" value="1234"><br>
 <input type="hidden" name="useremail" value="ohio0510@naver.com"><br>
 <input type="hidden" name="useraddress" value="서울"><br>
 <input  class="btn btn-primary" type ="submit" value="로그인">

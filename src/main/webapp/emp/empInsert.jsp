@@ -15,13 +15,37 @@
 <script type="text/javascript">
 $(function(){
 	$("#duplicateCheckBtn").click(function(){
+		var empid = $("#employee_id").val();
+		if(empid ==""||empid==null){
+			alert("직원번호는 필수입니다.");
+			$("#employee_id").focus();
+		}
 		$.ajax({
 			url:"duplicateCheck.do",
-			data:{"empid":$("#employee_id").val()},
+			data:{"empid":empid},
 			type:"get",
 			success:function(responseData){
 				//중복 :1, 중복아님 : 0
 				$("#message").html(responseData==1?"사용불가":"사용가능");
+			},
+			fail:function(){}
+		});
+	});
+});
+$(function(){
+	$("#duplicateCheckBtn2").click(function(){
+		var email = $("#email").val();
+		if(email ==""||email==null){
+			alert("이메일은 필수입니다.");
+			$("#email").focus();
+		}
+		$.ajax({
+			url:"emailduplicateCheck.do",
+			data:{"email":email},
+			type:"get",
+			success:function(responseData){
+				//중복 :1, 중복아님 : 0
+				$("#message2").html(responseData==1?"사용불가":"사용가능");
 			},
 			fail:function(){}
 		});
@@ -49,7 +73,9 @@ $(function(){
 </div>
 <div class="form-group">
       <label> email : </label>
-<input class="form-control" type="text" name="email" >
+<input class="form-control" type="text" name="email"id="email" >
+<input type="button" id="duplicateCheckBtn2" value="중복체크">
+<span id="message2"></span>
 </div>
 <div class="form-group">
       <label> phone : </label>
@@ -94,8 +120,16 @@ $(function(){
 </div>
 <input class="btn btn-primary" type="submit" value="입력하기">
 <input  class="btn btn-danger" type="reset" value="취소하기">
+<input  class="btn btn-primary" type="button" value="목록보기" id ="emplist">
 </form>
+<script type="text/javascript">
 
+$(function(){
+	$("#emplist").click(function(){
+		location.href="emplist.do";
+	});
+});
+</script>
 
 
 

@@ -21,6 +21,7 @@ public class EmpDuplicateCheckServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         String empid = request.getParameter("empid");
+        
         if(empid==null)  return ;
         int i_empid = Integer.parseInt(empid);
         System.out.println("emp_Id:" + empid);
@@ -28,6 +29,6 @@ public class EmpDuplicateCheckServlet extends HttpServlet {
         EMPService service = new EMPService();
         EMPVO emp = service.selectById(i_empid);
         PrintWriter out = response.getWriter();
-        out.print(emp==null?0:1);
+        out.print(emp==null?0:1);//0이면 등록가능 , 1이면 등록불가
 	}
 }

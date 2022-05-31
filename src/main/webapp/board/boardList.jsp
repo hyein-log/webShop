@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="../css/common.css">
 <style type="text/css">
 table, td {
-border:1px solid green;
+border:1px solid gray;
 border-collapse: collapse;
 padding: 10px;
 }
@@ -22,6 +22,7 @@ background-color: LavenderBlush;
 .color4{
 background-color: SeaShell;
 }
+table { width: 80%; margin: 0 auto;}
 </style>
 </head>
 <body>

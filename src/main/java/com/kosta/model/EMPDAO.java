@@ -16,6 +16,7 @@ public class EMPDAO {
 	static final String SQL_SELECT_BYDEPT = "select * from employees where department_id = ? order by 1";
 	static final String SQL_SELECT_BYMANAGER = "select * from employees where manager_id = ? order by 1";
 	static final String SQL_SELECT_JOB = "select * from employees where job_id = ? order by 1";
+	static final String SQL_SELECT_EMAIL = "select * from employees where email = ? order by 1";
 	static final String SQL_SELECT_CONDITION = "select * from employees "
 												+ "where department_id = ? "
 												+ "AND job_id = ? "
@@ -220,6 +221,27 @@ public class EMPDAO {
 		try {
 			pst = conn.prepareStatement(SQL_SELECT_BYID); //sql문장 미리 준비
 			pst.setInt(1, empid); //첫번째 물음표에 empid를 넣는다
+			rs = pst.executeQuery(); //쿼리는 아까 넣어줘서 또 넣을 필요없음
+			
+			while(rs.next()) {
+				emp= makeEmp(rs);
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			DBUtil.dbClose(rs, st, conn);
+		}
+		
+		return emp;
+		
+	}
+	public EMPVO selectByEmail(String empEmail) {
+		EMPVO emp = null;
+		conn = DBUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(SQL_SELECT_EMAIL); //sql문장 미리 준비
+			pst.setString(1, empEmail); //첫번째 물음표에 empid를 넣는다
 			rs = pst.executeQuery(); //쿼리는 아까 넣어줘서 또 넣을 필요없음
 			
 			while(rs.next()) {

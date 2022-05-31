@@ -19,7 +19,7 @@ public class BoardDAO {
 	static final String SQL_SELECT_BYWRITER = "select * from tbl_board where writer = ? order by 1";
 	static final String SQL_SELECT_BYTITLE = "select * from tbl_board where title like ? order by 1";
 	static final String SQL_SELECT_BYREGDATE = "select * from tbl_board where regdate between ? and ? order by 1";
-	static final String SQL_INSERT = "INSERT INTO tbl_board VALUES(seq_bno.nextval,?,?,?,sysdate,sysdate)";
+	static final String SQL_INSERT = "INSERT INTO tbl_board VALUES(seq_bno.nextval,?,?,?,sysdate,sysdate,?)";
 	static final String SQL_UPDATE = "update tbl_board set title = ?, content =?, update_date = sysdate where  bno =?";
 	static final String SQL_DELETE = "delete from tbl_board where bno = ?";
 	static final String SQL_BOARDENP = "SELECT b.BNO , b.TITLE , b.CONTENT , e.FIRST_NAME ||e.LAST_NAME "
@@ -80,7 +80,7 @@ public class BoardDAO {
 		board.setTitle(rs.getString("title"));
 		board.setUpdate_date(rs.getDate("update_date"));
 		board.setWriter(rs.getInt("writer"));
-
+		board.setPic(rs.getString("pic"));
 		return board;
 	}
 
@@ -178,6 +178,7 @@ public class BoardDAO {
 			pst.setString(1, bvo.getTitle());
 			pst.setString(2, bvo.getContent());
 			pst.setInt(3, bvo.getWriter());
+			pst.setString(4, bvo.getPic());
 
 			result = pst.executeUpdate();
 

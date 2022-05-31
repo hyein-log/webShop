@@ -19,7 +19,7 @@ import com.kosta.util.DateUtil;
 /**
  * Servlet implementation class EmpDetailServlet
  */
-@WebServlet("/emp/empDetail.do")
+//@WebServlet("/emp/empDetail.do")
 public class EmpDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

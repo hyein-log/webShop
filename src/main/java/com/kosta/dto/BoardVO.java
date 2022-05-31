@@ -9,10 +9,21 @@ public class BoardVO {
 	private int writer;
 	private Date regdate;
 	private Date update_date;
+	private String pic;
 	
 	private EMPVO emp;
 	
 	
+	public String getPic() {
+		return pic;
+	}
+
+
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
+
+
 	public EMPVO getEmp() {
 		System.out.println("getEmp!"+ emp);
 		return emp;
@@ -92,10 +103,12 @@ public class BoardVO {
 	public void setUpdate_date(Date update_date) {
 		this.update_date = update_date;
 	}
+
+
 	@Override
 	public String toString() {
 		return "BoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer + ", regdate="
-				+ regdate + ", update_date=" + update_date + "]";
+				+ regdate + ", update_date=" + update_date + ", pic=" + pic + ", emp=" + emp + "]";
 	}
 	
 }
